@@ -36,8 +36,8 @@ with open("ajb_simplificado.geojson", "r", encoding="utf-8") as f:
     gj = json.load(f)
 aoi = shape(gj['features'][0]['geometry']).wkt
 
-start_date = "2025-11-01T00:00:00.000Z"
-end_date = "2025-11-02T00:00:00.000Z"
+start_date = "2025-11-05T00:00:00.000Z"
+end_date = "2025-11-05T23:59:00.000Z"
 data_collection = "SENTINEL-1"
 
 url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter=Collection/Name eq '{data_collection}' and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start gt {start_date} and ContentDate/Start lt {end_date}"
