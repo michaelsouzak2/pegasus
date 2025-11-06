@@ -28,8 +28,8 @@ resp.raise_for_status()
 token_info = resp.json()
 access_token = token_info["access_token"]
 
-start_date = "2025-11-01"
-end_date = "2025-11-02"
+start_date = "2025-11-05"
+end_date = "2025-11-05"
 data_collection = "SENTINEL-1"
 
 with open("ajb_simplificado.geojson", "r", encoding="utf-8") as f:
