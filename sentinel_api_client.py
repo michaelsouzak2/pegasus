@@ -36,7 +36,7 @@ def get_bounding_boxes():
     end_date = "2025-11-05T23:59:59.000Z"
     data_collection = "SENTINEL-1"
 
-    url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter=Collection/Name eq '{data_collection}' and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and att/OData.CSC.StringAttribute/Value eq 'IW_GRDH_1S') and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start ge {start_date} and ContentDate/Start le {end_date}&$top=1000"
+    url = f"https://catalogue.dataspace.copernicus.eu/odata/v1/Products?$filter=Collection/Name eq '{data_collection}' and Attributes/OData.CSC.StringAttribute/any(att:att/Name eq 'productType' and att/OData.CSC.StringAttribute/Value eq 'IW_GRDH_1S') and OData.CSC.Intersects(area=geography'SRID=4326;{aoi}') and ContentDate/Start ge {start_date} and ContentDate/Start le {end_date}&$top=1000&$expand=Attributes"
 
     json = requests.get(url).json()
     return json["value"]
