@@ -1,7 +1,5 @@
 import requests
-import json
 from shapely.geometry import shape
-import pandas as pd
 import os
 from dotenv import load_dotenv, find_dotenv
 
@@ -16,7 +14,7 @@ Como baixar um produto: https://documentation.dataspace.copernicus.eu/APIs/OData
 Sentinel: https://dataspace.copernicus.eu/data-collections/sentinel-data/sentinel-1
 """
 
-def get_images_sentinel():
+def get_bounding_boxes():
     token_url = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
     payload = {
         "grant_type": "password",
@@ -29,6 +27,7 @@ def get_images_sentinel():
     token_info = resp.json()
     access_token = token_info["access_token"]
 
+    import json
     with open("ajb_simplificado.geojson", "r", encoding="utf-8") as f:
         gj = json.load(f)
     aoi = shape(gj['features'][0]['geometry']).wkt
@@ -41,9 +40,6 @@ def get_images_sentinel():
 
     json = requests.get(url).json()
     return json["value"]
-
-# df = pd.DataFrame.from_dict(json["value"])
-# print(df['Name'].to_list())
 
 
 # Download do produto
