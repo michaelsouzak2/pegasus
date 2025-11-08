@@ -9,3 +9,7 @@ def format_date(date_str):
     
     except ValueError:
         return date_str 
+    
+def get_current_datetime():
+    """Returns the current date and time in 'DD/MM/YYYY HH:MM:SS' format."""
+    return datetime.now().strftime("%d-%m-%YT%H-%M-%S")
