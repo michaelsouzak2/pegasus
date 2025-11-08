@@ -1,10 +1,8 @@
 import folium
-from sentinel_api_client import get_bounding_boxes
+from copernicus_api_client import get_bounding_boxes
 from utils import format_date
 
 images = get_bounding_boxes()
-
-# polygons = [coordinates['GeoFootprint']['coordinates'][0] for coordinates in images]
 
 mapa_copernicus = folium.Map(location=[-14.2350, -51.9253], zoom_start=4)
 
