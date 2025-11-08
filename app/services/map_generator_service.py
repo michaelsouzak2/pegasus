@@ -2,8 +2,7 @@ import json
 import folium
 from pathlib import Path
 
-from copernicus_api_client import get_bounding_boxes
-from utils import format_date, get_current_datetime
+from app.utils.datetime_utils import format_date, get_current_datetime
 
 
 def create_base_map():
@@ -31,7 +30,7 @@ def add_ajb_background(map: folium.Map):
     """
     Adiciona o GeoJSON da AJB marítima
     """
-    geojson_path = Path("ajb_simplificado.geojson")
+    geojson_path = Path("app/geojson/ajb_simplificado.geojson")
     if not geojson_path.exists():
         return
 
@@ -139,6 +138,7 @@ def generate_map(products: list):
     folium.LayerControl(collapsed=False).add_to(mapa)
     add_fullscreen_style(mapa)
 
-    filename = f"mapa_brasil_{get_current_datetime()}.html"
-    mapa.save(filename)
-    print(f"Arquivo gerado: {filename}")
+    #filename = f"mapa_brasil_{get_current_datetime()}.html"
+    #mapa.save(filename)
+    #print(f"Arquivo gerado: {filename}")
+    return mapa
