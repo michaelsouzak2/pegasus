@@ -13,6 +13,10 @@ Pesquisa: https://browser.dataspace.copernicus.eu
 Primeiros passos: https://documentation.dataspace.copernicus.eu/notebook-samples/sentinelhub/migration_from_scihub_guide.html
 Como baixar um produto: https://documentation.dataspace.copernicus.eu/APIs/OData.html#compressed-product-download
 Sentinel: https://dataspace.copernicus.eu/data-collections/sentinel-data/sentinel-1
+
+https://api.spectator.earth/?language=Python#spectator-api-docs
+https://app.spectator.earth/?&@-21.207458730482642,-35.50781250000001,3z
+
 """
 
 def get_access_token():
