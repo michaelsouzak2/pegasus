@@ -30,7 +30,7 @@ def add_ajb_background(map: folium.Map):
     """
     Adiciona o GeoJSON da AJB marítima
     """
-    geojson_path = Path("app/geojson/ajb_simplificado.geojson")
+    geojson_path = Path("app/geojson/ajb_maritimo.geojson")
     if not geojson_path.exists():
         return
 
