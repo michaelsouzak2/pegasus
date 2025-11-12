@@ -4,6 +4,8 @@ import requests
 from shapely.geometry import shape
 from dotenv import load_dotenv, find_dotenv
 
+from app.config.settings import SETTINGS
+
 _ = load_dotenv(find_dotenv())
 
 """
@@ -35,7 +37,8 @@ def get_access_token():
 
 
 def get_bounding_boxes(start_date: str = "2025-11-05T00:00:00.000Z", end_date: str = "2025-11-05T23:59:59.000Z") -> list:    
-    with open("app/geojson/ajb_maritimo.geojson", "r", encoding="utf-8") as f:
+    GEOJSON_PATH = SETTINGS["geojson"]["path_dir"]
+    with open(GEOJSON_PATH, "r", encoding="utf-8") as f:
         gj = json.load(f)
     area_of_interest = shape(gj['features'][0]['geometry']).wkt
     #start_date = "2025-11-05T00:00:00.000Z"

@@ -3,6 +3,7 @@ import folium
 from pathlib import Path
 
 from app.utils.datetime_utils import format_date, get_current_datetime
+from app.config.settings import SETTINGS
 
 
 def create_base_map():
@@ -30,7 +31,7 @@ def add_ajb_background(map: folium.Map):
     """
     Adiciona o GeoJSON da AJB marítima
     """
-    geojson_path = Path("app/geojson/ajb_maritimo.geojson")
+    geojson_path = Path(SETTINGS["geojson"]["path_dir"])
     if not geojson_path.exists():
         return
 
