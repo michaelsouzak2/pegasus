@@ -1,2 +1,5 @@
 [urlteste]
 url = "dev.hercules.mb"
+
+[download]
+path = "app/downloads/"
