@@ -48,8 +48,6 @@ def get_bounding_boxes(start_date: str = "2025-11-05T00:00:00.000Z", end_date: s
     with open(GEOJSON_PATH, "r", encoding="utf-8") as f:
         gj = json.load(f)
     area_of_interest = shape(gj['features'][0]['geometry']).wkt
-    #start_date = "2025-11-05T00:00:00.000Z"
-    #end_date = "2025-11-05T23:59:59.000Z"
     data_collection = "SENTINEL-1"
     product_type = "IW_GRDH_1S"
 
@@ -98,5 +96,5 @@ def start_download_products():
         print(f"Produto {product_name} baixado em {filename}")
 
 
-if __name__ == "__main__":
-    start_download_products()
+#if __name__ == "__main__":
+    #start_download_products()

@@ -1,2 +1,5 @@
 [geojson]
 path_dir = "app/geojson/AJB_maritimo.geojson"
+
+[urls]
+spectator_url = "https://api.spectator.earth/acquisition-plan"

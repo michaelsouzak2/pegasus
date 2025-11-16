@@ -1,6 +1,12 @@
 import json
-import folium
+import os
+import sys
 from pathlib import Path
+import folium
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 from app.utils.datetime_utils import format_date, get_current_datetime
 from app.config.settings import SETTINGS
@@ -113,6 +119,47 @@ def add_products_polygons(map: folium.Map, products: list):
         ).add_to(map)
 
 
+def add_acquisition_plan_polygons(map: folium.Map, acquisition_plan: dict):
+    """
+    Adiciona os polígonos do plano de aquisição retornados pela API do Spectator Earth ao mapa.
+    """
+    if not acquisition_plan:
+        return
+
+    features = acquisition_plan.get("features", [])
+    for feature in features:
+        properties = feature.get("properties", {})
+        geometry = feature.get("geometry", {})
+        coordinates = geometry.get("coordinates", [[]])[0]
+
+        latlon = [[lat, lon] for lon, lat in coordinates]
+
+        satellite = properties.get("satellite", "-")
+        begin_time = properties.get("begin_time", "-")
+        end_time = properties.get("end_time", "-")
+        polarisation = properties.get("polarisation", "-")
+
+        popup_html = f"""
+        <div style="font-size: 12px;">
+            <b>Satélite:</b> {satellite}<br>
+            <b>Início da aquisição:</b> {begin_time}<br>
+            <b>Fim da aquisição:</b> {end_time}<br>
+            <b>Polarização:</b> {polarisation}<br>
+        </div>
+        """
+
+        folium.Polygon(
+            locations=latlon,
+            color="green",
+            weight=2,
+            fill=True,
+            fill_color="green",
+            fill_opacity=0.1,
+            popup=folium.Popup(popup_html),
+            name=f"Plano de Aquisição {satellite}",
+        ).add_to(map)
+
+
 def add_fullscreen_style(map: folium.Map):
     """
     Faz com que o mapa ocupe a tela toda.
@@ -129,17 +176,30 @@ def add_fullscreen_style(map: folium.Map):
     )
 
 
-def generate_map(products: list):
+def generate_map(products: list, acquisition_plan: dict = None) -> folium.Map:
     """
     Gerador do mapa
     """
     mapa = create_base_map()
     add_ajb_background(mapa)
     add_products_polygons(mapa, products)
+    add_acquisition_plan_polygons(mapa, acquisition_plan)
     folium.LayerControl(collapsed=False).add_to(mapa)
     add_fullscreen_style(mapa)
 
-    #filename = f"mapa_brasil_{get_current_datetime()}.html"
-    #mapa.save(filename)
-    #print(f"Arquivo gerado: {filename}")
+    # filename = f"mapa_brasil_{get_current_datetime()}.html"
+    # mapa.save(filename)
+    # print(f"Arquivo gerado: {filename}")
     return mapa
+
+
+# start_date = "2025-11-15" + "T00:00:00.000Z"
+# end_date = "2025-11-15" + "T23:59:59.000Z"
+
+# from app.services.copernicus_service import get_bounding_boxes
+# from app.services.spectator_service import get_acquisition_plan
+
+# bounding_boxes = get_bounding_boxes(start_date=start_date, end_date=end_date)
+# acquisition_plan = get_acquisition_plan(datetime_of_interest=start_date)
+# generate_map(bounding_boxes, acquisition_plan)
+
