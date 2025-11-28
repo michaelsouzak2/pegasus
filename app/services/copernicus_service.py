@@ -96,5 +96,5 @@ def start_download_products():
         print(f"Produto {product_name} baixado em {filename}")
 
 
-#if __name__ == "__main__":
-    #start_download_products()
+if __name__ == "__main__":
+    start_download_products()
