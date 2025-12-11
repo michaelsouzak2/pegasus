@@ -183,7 +183,7 @@ def generate_map(products: list, acquisition_plan: dict = None) -> folium.Map:
     mapa = create_base_map()
     add_ajb_background(mapa)
     add_products_polygons(mapa, products)
-    add_acquisition_plan_polygons(mapa, acquisition_plan)
+    #add_acquisition_plan_polygons(mapa, acquisition_plan)
     folium.LayerControl(collapsed=False).add_to(mapa)
     add_fullscreen_style(mapa)
 

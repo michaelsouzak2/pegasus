@@ -85,7 +85,7 @@ def download_product(product_id: str, product_name: str, access_token: str, down
 
 def start_download_products():
     access_token = get_access_token()
-    yesterday = (date.today() - timedelta(1)).isoformat()
+    yesterday = (date.today() - timedelta(0)).isoformat()
     products = get_bounding_boxes(start_date=f"{yesterday}T00:00:00.000Z", end_date=f"{yesterday}T23:59:59.000Z")
     download_path = SETTINGS["download"]["path"]
 
@@ -97,4 +97,4 @@ def start_download_products():
 
 
 if __name__ == "__main__":
-    start_download_products()
+ start_download_products()
